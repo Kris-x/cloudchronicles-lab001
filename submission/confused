@@ -1,0 +1,59 @@
+Here’s a STAR-based disaster recovery plan for a Google Cloud outage in the us-central1 region, using Cloud SQL replicas, multi-region Cloud Storage, and Pub/Sub alerts.
+
+Situation
+A regional outage in us-central1 has disrupted services, affecting databases, storage access, and messaging queues. Applications hosted in this region are experiencing downtime.
+
+Task
+Ensure business continuity by implementing a failover strategy that restores services quickly while minimizing data loss.
+
+Action
+Database Failover (Cloud SQL Replicas)
+
+Prevention:
+
+Deploy read replicas in us-east1 and us-west1.
+
+Set up automated backups for recovery.
+
+Failover:
+
+Promote a replica in us-east1 or us-west1 as the new primary instance.
+
+Update connection strings and use Cloud SQL Proxy to reroute traffic.
+
+Storage Redundancy (Multi-Region Cloud Storage)
+
+Prevention:
+
+Store critical data in multi-region buckets (nam4 for North America).
+
+Failover:
+
+Applications automatically retrieve data from alternative storage locations without requiring manual intervention.
+
+Messaging & Alerts (Pub/Sub & Monitoring)
+
+Prevention:
+
+Distribute Pub/Sub topics across multiple regions.
+
+Failover:
+
+Clients connect to Pub/Sub instances in backup regions (us-east1, us-west1).
+
+Cloud Monitoring triggers alerts notifying teams of service disruptions and recovery actions.
+
+Traffic Management (Cloud Load Balancer & DNS Failover)
+
+Prevention:
+
+Use a Global HTTP(S) Load Balancer to distribute traffic across multiple regions.
+
+Failover:
+
+Traffic shifts automatically to healthy instances.
+
+Cloud DNS updates service IPs with low TTL values for rapid redirection.
+
+Result
+✅ Databases remain operational using Cloud SQL replicas. ✅ Storage access is uninterrupted via multi-region Cloud Storage. ✅ Messaging continues using Pub/Sub failover mechanisms. ✅ Traffic is rerouted with load balancing and DNS failover.
